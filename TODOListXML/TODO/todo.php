@@ -1,5 +1,5 @@
 ﻿<?php
-$jsonFile = 'tasks.json';  // Файл, где будем хранить задачи в формате JSON
+$jsonFile = 'tasks.json';  // TEST commit
 
 // Функция для загрузки XML файла и преобразования его в JSON (только если JSON еще не создан)
 function xmlToJson($xmlFile, $jsonFile) {
