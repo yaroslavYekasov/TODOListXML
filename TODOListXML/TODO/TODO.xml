@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+	<task id="1">
+		<date>2024-11-01</date>
+		<deadline>2024-11-10</deadline>
+		<subject>Matemaatika</subject>
+		<info>Harjutuste lahendamine</info>
+		<description>Teha ülesanded 12-20 kolmandast peatükist</description>
+	</task>
+	<task id="2">
+		<date>2024-11-05</date>
+		<deadline>2024-11-15</deadline>
+		<subject>Füüsika</subject>
+		<info>Testiks valmistumine</info>
+		<description>Õppida liikumise ja kiirenduse teemasid</description>
+	</task>
+	<task id="3">
+		<date>2024-11-08</date>
+		<deadline>2024-11-18</deadline>
+		<subject>Keemia</subject>
+		<info>Laboritöö ettevalmistus</info>
+		<description>Valmistada ette töö vesinikperoksiidi kohta</description>
+	</task>
+	<task id="4">
+		<date>2024-11-10</date>
+		<deadline>2024-11-20</deadline>
+		<subject>Inglise keel</subject>
+		<info>Essee kirjutamine</info>
+		<description>Kirjutada essee teemal "Minu suvi"</description>
+	</task>
+	<task id="5">
+		<date>2024-11-12</date>
+		<deadline>2024-11-22</deadline>
+		<subject>Bioloogia</subject>
+		<info>Referaadi koostamine</info>
+		<description>Teema: Inimese seedeelundkond</description>
+	</task>
+	<task id="6">
+		<date>2024-11-14</date>
+		<deadline>2024-11-24</deadline>
+		<subject>Ajalugu</subject>
+		<info>Peatüki lugemine</info>
+		<description>Lugeda peatükk Teine maailmasõda</description>
+	</task>
+	<task id="7">
+		<date>2024-11-16</date>
+		<deadline>2024-11-26</deadline>
+		<subject>Geograafia</subject>
+		<info>Kaarditöö</info>
+		<description>Valmistada ette kaarditöö Euroopa jõgede kohta</description>
+	</task>
+	<task id="8">
+		<date>2024-11-18</date>
+		<deadline>2024-11-28</deadline>
+		<subject>Kirjandus</subject>
+		<info>Raamatu lugemine</info>
+		<description>Lugeda "Rehepapp" Andrus Kivirähkilt</description>
+	</task>
+	<task id="9">
+		<date>2024-11-20</date>
+		<deadline>2024-11-30</deadline>
+		<subject>Muusika</subject>
+		<info>Kontserdi analüüs</info>
+		<description>Analüüsida kuulatud kontserti ja esitada kirjalik aruanne</description>
+	</task>
+	<task id="10">
+		<date>2024-11-22</date>
+		<deadline>2024-12-02</deadline>
+		<subject>Kunst</subject>
+		<info>Joonistamise ülesanne</info>
+		<description>Joonistada portree kasutades pliiatsi varjutamise tehnikat</description>
+	</task>
+</tasks>
