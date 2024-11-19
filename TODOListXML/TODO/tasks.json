@@ -1,36 +1,12 @@
 {
     "tasks": [
         {
-            "id": "1",
-            "date": "2024-11-01",
-            "deadline": "2024-11-10",
-            "subject": "Matemaatika",
-            "info": "Harjutuste lahendamine",
-            "description": "Teha \u00fclesanded 12-20 kolmandast peat\u00fckist"
-        },
-        {
-            "id": "2",
-            "date": "2024-11-05",
-            "deadline": "2024-11-15",
-            "subject": "F\u00fc\u00fcsika",
-            "info": "Testiks valmistumine",
-            "description": "\u00d5ppida liikumise ja kiirenduse teemasid"
-        },
-        {
-            "id": "3",
-            "date": "2024-11-08",
-            "deadline": "2024-11-18",
-            "subject": "Keemia",
-            "info": "Laborit\u00f6\u00f6 ettevalmistus",
-            "description": "Valmistada ette t\u00f6\u00f6 vesinikperoksiidi kohta"
-        },
-        {
-            "id": "4",
-            "date": "2024-11-10",
-            "deadline": "2024-11-20",
-            "subject": "Inglise keel",
-            "info": "Essee kirjutamine",
-            "description": "Kirjutada essee teemal \"Minu suvi\""
+            "id": "6",
+            "date": "2024-11-14",
+            "deadline": "2024-11-24",
+            "subject": "Ajalugu",
+            "info": "Peat\u00fcki lugemine",
+            "description": "Lugeda peat\u00fckk Teine maailmas\u00f5da"
         },
         {
             "id": "5",
@@ -41,12 +17,12 @@
             "description": "Teema: Inimese seedeelundkond"
         },
         {
-            "id": "6",
-            "date": "2024-11-14",
-            "deadline": "2024-11-24",
-            "subject": "Ajalugu",
-            "info": "Peat\u00fcki lugemine",
-            "description": "Lugeda peat\u00fckk Teine maailmas\u00f5da"
+            "id": "2",
+            "date": "2024-11-05",
+            "deadline": "2024-11-15",
+            "subject": "F\u00fc\u00fcsika",
+            "info": "Testiks valmistumine",
+            "description": "\u00d5ppida liikumise ja kiirenduse teemasid"
         },
         {
             "id": "7",
@@ -57,6 +33,22 @@
             "description": "Valmistada ette kaardit\u00f6\u00f6 Euroopa j\u00f5gede kohta"
         },
         {
+            "id": "4",
+            "date": "2024-11-10",
+            "deadline": "2024-11-20",
+            "subject": "Inglise keel",
+            "info": "Essee kirjutamine",
+            "description": "Kirjutada essee teemal \"Minu suvi\""
+        },
+        {
+            "id": "3",
+            "date": "2024-11-08",
+            "deadline": "2024-11-18",
+            "subject": "Keemia",
+            "info": "Laborit\u00f6\u00f6 ettevalmistus",
+            "description": "Valmistada ette t\u00f6\u00f6 vesinikperoksiidi kohta"
+        },
+        {
             "id": "8",
             "date": "2024-11-18",
             "deadline": "2024-11-28",
@@ -65,20 +57,28 @@
             "description": "Lugeda \"Rehepapp\" Andrus Kivir\u00e4hkilt"
         },
         {
-            "id": "9",
-            "date": "2024-11-20",
-            "deadline": "2024-11-30",
-            "subject": "Muusika",
-            "info": "Kontserdi anal\u00fc\u00fcs",
-            "description": "Anal\u00fc\u00fcsida kuulatud kontserti ja esitada kirjalik aruanne"
-        },
-        {
             "id": "10",
             "date": "2024-11-22",
             "deadline": "2024-12-02",
             "subject": "Kunst",
             "info": "Joonistamise \u00fclesanne",
             "description": "Joonistada portree kasutades pliiatsi varjutamise tehnikat"
+        },
+        {
+            "id": "1",
+            "date": "2024-11-01",
+            "deadline": "2024-11-10",
+            "subject": "Matemaatika",
+            "info": "Harjutuste lahendamine",
+            "description": "Teha \u00fclesanded 12-20 kolmandast peat\u00fckist"
+        },
+        {
+            "id": "9",
+            "date": "2024-11-20",
+            "deadline": "2024-11-30",
+            "subject": "Muusika",
+            "info": "Kontserdi anal\u00fc\u00fcs",
+            "description": "Anal\u00fc\u00fcsida kuulatud kontserti ja esitada kirjalik aruanne"
         },
         {
             "id": "11",
@@ -95,6 +95,46 @@
             "subject": "TEST1",
             "info": "TEST",
             "description": "TEST"
+        },
+        {
+            "date": "2024-11-05",
+            "deadline": "2024-11-06",
+            "subject": "TEST2",
+            "info": "TEST2",
+            "description": "TEST2",
+            "id": 13
+        },
+        {
+            "date": "2024-11-05",
+            "deadline": "2024-11-06",
+            "subject": "TEST3",
+            "info": "TEST3",
+            "description": "TEST3",
+            "id": 14
+        },
+        {
+            "date": "2024-11-05",
+            "deadline": "2024-11-06",
+            "subject": "TEST4",
+            "info": "TEST4",
+            "description": "TEST4",
+            "id": 15
+        },
+        {
+            "date": "2024-11-05",
+            "deadline": "2024-11-06",
+            "subject": "TEST5",
+            "info": "TEST5",
+            "description": "TEST5",
+            "id": 16
+        },
+        {
+            "date": "2024-11-05",
+            "deadline": "2024-11-06",
+            "subject": "TEST6",
+            "info": "TEST6",
+            "description": "TEST6",
+            "id": 17
         }
     ]
 }

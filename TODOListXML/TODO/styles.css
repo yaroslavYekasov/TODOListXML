@@ -9,7 +9,7 @@
 }
 
 h2, h3 {
-    color: #c62828; 
+    color: #c62828;
 }
 
 button {
@@ -61,7 +61,7 @@ table {
     max-width: 1200px;
     border-collapse: separate;
     border-spacing: 0;
-    border: 2px solid #c62828; 
+    border: 2px solid #c62828;
     border-radius: 15px;
     overflow: hidden;
     margin-top: 20px;
@@ -74,7 +74,7 @@ th, td {
 }
 
 th {
-    background-color: #f8d7da; 
+    background-color: #f8d7da;
     color: #c62828;
 }
 
@@ -83,10 +83,14 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9; 
+    background-color: #f9f9f9;
 }
 
 .outdated {
-    background-color: #ffbf00 !important; 
+    background-color: #ffbf00 !important;
+}
+
+.sortable {
+    color:  #ffffff;
 }
 

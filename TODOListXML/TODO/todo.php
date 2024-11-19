@@ -1,13 +1,13 @@
 ﻿<?php
 $jsonFile = 'tasks.json';  // TEST commit
 
-// Функция для загрузки XML файла и преобразования его в JSON (только если JSON еще не создан)
+// Function to load XML file and convert it to JSON (only if JSON doesn't exist or is empty)
 function xmlToJson($xmlFile, $jsonFile) {
     if (!file_exists($jsonFile) || filesize($jsonFile) == 0) {
         $xml = simplexml_load_file($xmlFile) or die("Viga: Ei saa XML-faili laadida");
         $tasks = ['tasks' => []];
 
-        // Конвертируем XML задачи в массив
+        // Convert XML tasks into an array
         foreach ($xml->task as $task) {
             $tasks['tasks'][] = [
                 'id' => (string)$task['id'],
@@ -19,34 +19,63 @@ function xmlToJson($xmlFile, $jsonFile) {
             ];
         }
 
-        // Сохраняем данные в JSON файл
+        // Save the data into the JSON file
         file_put_contents($jsonFile, json_encode($tasks, JSON_PRETTY_PRINT));
     }
 }
 
-// Преобразуем XML в JSON при первом запуске, если JSON файл не существует или пуст
+// Convert XML to JSON on the first run, if the JSON file doesn't exist or is empty
 xmlToJson('TODO.xml', $jsonFile);
 
-// Обработка добавления новой задачи через POST запрос
+// Function to generate a unique ID
+function generateUniqueId($tasks) {
+    $ids = array_column($tasks['tasks'], 'id');
+    return count($ids) > 0 ? max($ids) + 1 : 1;
+}
+
+// Handle adding a new task via POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST)) {
     $newTask = json_decode(file_get_contents('php://input'), true);
     if ($newTask) {
         $tasks = json_decode(file_get_contents($jsonFile), true);
+
+        // Generate a new unique ID for the task
+        $newTask['id'] = generateUniqueId($tasks);
+
+        // Add the new task
         $tasks['tasks'][] = $newTask;
         file_put_contents($jsonFile, json_encode($tasks, JSON_PRETTY_PRINT));
-        echo "Uus ülesanne lisatud!";
+
+        echo "Uus ülesanne lisatud";
         exit;
     }
 }
 
-// Обработка кнопки для отображения JSON
+// Handle sorting and return JSON if requested
+if (isset($_GET['sort']) && isset($_GET['view']) && $_GET['view'] === 'json') {
+    $tasks = json_decode(file_get_contents($jsonFile), true);
+    $sortColumn = $_GET['sort'];
+
+    usort($tasks['tasks'], function ($a, $b) use ($sortColumn) {
+        return strcmp($a[$sortColumn], $b[$sortColumn]);
+    });
+
+    if (isset($_GET['order']) && $_GET['order'] === 'desc') {
+        $tasks['tasks'] = array_reverse($tasks['tasks']);
+    }
+
+    // Return the sorted tasks as JSON
+    header('Content-Type: application/json');
+    echo json_encode($tasks);
+    exit;
+}
+
+// Handle viewing JSON or XML data
 if (isset($_GET['view']) && $_GET['view'] == 'json') {
     header('Content-Type: application/json');
     echo file_get_contents($jsonFile);
     exit;
 }
-
-// Обработка кнопки для отображения XML
 if (isset($_GET['view']) && $_GET['view'] == 'xml') {
     header('Content-Type: text/xml');
     echo file_get_contents('TODO.xml');
@@ -64,7 +93,6 @@ if (isset($_GET['view']) && $_GET['view'] == 'xml') {
     <script>
         function addTask() {
             const newTask = {
-                id: document.getElementById("task_id").value,
                 date: document.getElementById("task_date").value,
                 deadline: document.getElementById("task_deadline").value,
                 subject: document.getElementById("task_subject").value,
@@ -79,69 +107,100 @@ if (isset($_GET['view']) && $_GET['view'] == 'xml') {
                 },
                 body: JSON.stringify(newTask)
             }).then(response => response.text())
-            .then(data => {
-                alert(data);
-                location.reload();
-            });
+                .then(data => {
+                    alert(data);
+                    location.reload();
+                });
+        }
+
+        function sortTable(column) {
+            const currentUrl = new URL(window.location.href);
+            const currentSort = currentUrl.searchParams.get("sort");
+            const currentOrder = currentUrl.searchParams.get("order") || "asc";
+
+            const newOrder = currentSort === column && currentOrder === "asc" ? "desc" : "asc";
+
+            // Use fetch to load sorted tasks without reloading the page
+            fetch(`todo.php?sort=${column}&order=${newOrder}&view=json`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector("table tbody");
+                    tableBody.innerHTML = ""; // Clear current table rows
+
+                    // Append sorted tasks to the table
+                    data.tasks.forEach(task => {
+                        const deadline = new Date(task.deadline);
+                        const isOutdated = deadline < new Date() ? "outdated" : "";
+
+                        tableBody.innerHTML += `
+                            <tr class="${isOutdated}">
+                                <td>${task.date}</td>
+                                <td>${task.deadline}</td>
+                                <td>${task.subject}</td>
+                                <td>${task.info}</td>
+                                <td>${task.description}</td>
+                            </tr>`;
+                    });
+                });
         }
     </script>
 </head>
 <body>
-    <h2>TODO nimekiri</h2>
+<h2>TODO nimekiri</h2>
 
-    <!-- Кнопки для отображения JSON и XML в новой вкладке -->
-    <button onclick="window.open('todo.php?view=json', '_blank')">Näita JSON-i</button>
-    <button onclick="window.open('todo.php?view=xml', '_blank')">Näita XML-i</button>
+<!-- Buttons to view JSON and XML -->
+<button onclick="window.open('todo.php?view=json', '_blank')">Näita JSON-i</button>
+<button onclick="window.open('todo.php?view=xml', '_blank')">Näita XML-i</button>
 
-    <br><br>
+<br><br>
 
-    <!-- Форма для добавления новой задачи в виде карточки -->
-    <div class="form-card">
-        <h3>Lisa uus ülesanne</h3>
-        <label>ID: <input type="text" id="task_id"></label>
-        <label>Kuupäev: <input type="text" id="task_date"></label>
-        <label>Tähtaeg: <input type="text" id="task_deadline"></label>
-        <label>Õppeaine: <input type="text" id="task_subject"></label>
-        <label>Teave: <input type="text" id="task_info"></label>
-        <label>Kirjeldus: <input type="text" id="task_description"></label>
-        <button onclick="addTask()">Lisa ülesanne</button>
-    </div>
+<!-- Form for adding a new task -->
+<div class="form-card">
+    <h3>Lisa uus ülesanne</h3>
+    <label>Kuupäev: <input type="text" id="task_date"></label>
+    <label>Tähtaeg: <input type="text" id="task_deadline"></label>
+    <label>Õppeaine: <input type="text" id="task_subject"></label>
+    <label>Teave: <input type="text" id="task_info"></label>
+    <label>Kirjeldus: <input type="text" id="task_description"></label>
+    <button onclick="addTask()">Lisa ülesanne</button>
+</div>
 
-    <br><br>
+<br><br>
 
-    <!-- Отображение задач в таблице -->
-    <h3>Praegused ülesanded</h3>
+<!-- Display tasks in a table -->
+<h3>Praegused ülesanded</h3>
+<table>
+    <thead>
+    <tr>
+        <th onclick="sortTable('date')" class="sortable">Kuupäev</th>
+        <th onclick="sortTable('deadline')" class="sortable">Tähtaeg</th>
+        <th onclick="sortTable('subject')" class="sortable">Õppeaine</th>
+        <th>Teave</th>
+        <th>Kirjeldus</th>
+    </tr>
+    </thead>
+    <tbody>
     <?php
     if (file_exists($jsonFile)) {
         $tasks = json_decode(file_get_contents($jsonFile), true);
-        echo "<table>
-                <tr>
-                    <th>ID</th>
-                    <th>Kuupäev</th>
-                    <th>Tähtaeg</th>
-                    <th>Õppeaine</th>
-                    <th>Teave</th>
-                    <th>Kirjeldus</th>
-                </tr>";
 
         foreach ($tasks['tasks'] as $task) {
             $deadline = strtotime($task['deadline']);
             $isOutdated = $deadline < time() ? "class='outdated'" : "";
 
             echo "<tr $isOutdated>
-                    <td>{$task['id']}</td>
-                    <td>{$task['date']}</td>
-                    <td>{$task['deadline']}</td>
-                    <td>{$task['subject']}</td>
-                    <td>{$task['info']}</td>
-                    <td>{$task['description']}</td>
-                  </tr>";
+                        <td>{$task['date']}</td>
+                        <td>{$task['deadline']}</td>
+                        <td>{$task['subject']}</td>
+                        <td>{$task['info']}</td>
+                        <td>{$task['description']}</td>
+                      </tr>";
         }
-
-        echo "</table>";
     } else {
-        echo "JSON fail puudub.";
+        echo "<tr><td colspan='5'>JSON fail puudub.</td></tr>";
     }
     ?>
+    </tbody>
+</table>
 </body>
 </html>
